@@ -1,0 +1,4 @@
+com\maurizio\preventivi\PreventiviFaciliApplication.class
+com\maurizio\preventivi\PdfService.class
+com\maurizio\preventivi\HomeController.class
+com\maurizio\preventivi\PreventivoForm.class

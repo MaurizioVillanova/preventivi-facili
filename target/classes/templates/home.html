@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Preventivi Facili</title>
+</head>
+<body>
+    <h1>Preventivi Facili</h1>
+
+    <form th:action="@{/calcola}" th:object="${preventivoForm}" method="post">
+        <div>
+            <label>Nome cliente:</label>
+            <input type="text" th:field="*{nomeCliente}">
+        </div>
+
+        <br>
+
+        <div>
+            <label>Descrizione servizio:</label>
+            <input type="text" th:field="*{descrizioneServizio}">
+        </div>
+
+        <br>
+
+        <div>
+            <label>Prezzo:</label>
+            <input type="number" step="0.01" th:field="*{prezzo}">
+        </div>
+
+        <br>
+
+        <button type="submit">Calcola</button>
+    </form>
+
+    <div th:if="${messaggio != null}">
+        <h2 th:text="${messaggio}"></h2>
+
+        <p><strong>Cliente:</strong> <span th:text="${preventivoForm.nomeCliente}"></span></p>
+        <p><strong>Servizio:</strong> <span th:text="${preventivoForm.descrizioneServizio}"></span></p>
+        <p><strong>Prezzo:</strong> <span th:text="${preventivoForm.prezzo}"></span> €</p>
+        <p><strong>IVA (22%):</strong> <span th:text="${preventivoForm.iva}"></span> €</p>
+        <p><strong>Totale:</strong> <span th:text="${preventivoForm.totale}"></span> €</p>
+
+        <form th:action="@{/pdf}" method="post">
+    <input type="hidden" name="nomeCliente" th:value="${preventivoForm.nomeCliente}" />
+    <input type="hidden" name="descrizioneServizio" th:value="${preventivoForm.descrizioneServizio}" />
+    <input type="hidden" name="prezzo" th:value="${preventivoForm.prezzo}" />
+    <input type="hidden" name="iva" th:value="${preventivoForm.iva}" />
+    <input type="hidden" name="totale" th:value="${preventivoForm.totale}" />
+
+    <button type="submit">Scarica PDF</button>
+</form>
+    </div>
+</body>
+</html>
